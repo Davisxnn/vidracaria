@@ -1,14 +1,13 @@
 {
   "name": "vidracaria",
   "version": "1.0.0",
-  "description": "Sistema web para vidracaria com Node.js e SQLite",
-  "main": "server.js",
-  "type": "commonjs",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": ["vidracaria", "nodejs", "sqlite", "express"],
-  "author": "Davison Silva",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
