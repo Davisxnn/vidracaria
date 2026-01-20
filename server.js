@@ -26,11 +26,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 // ===== ROTAS =====
-const clientesRoutes = require('./routes/clientes');
-const produtosRoutes = require('./routes/produtos');
-const orcamentosRoutes = require('./routes/orcamentos');
-const trabalhosRoutes = require('./routes/trabalhos');
-const vidrosRoutes = require('./routes/vidros');
+const clientesRoutes = require('./backend/routes/clientes');
+const produtosRoutes = require('./backend/routes/produtos');
+const orcamentosRoutes = require('./backend/routes/orcamentos');
+const trabalhosRoutes = require('./backend/routes/trabalhos');
+const vidrosRoutes = require('./backend/routes/vidros');
 
 app.use('/clientes', clientesRoutes);
 app.use('/produtos', produtosRoutes);
