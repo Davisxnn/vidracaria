@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema da Vidraçaria</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1>SISTEMA DFJ-VIDROS</h1>
+
+<div class="boas-vindas">
+  <h2>Bem-vindo, David</h2>
+  <p>Gerencie seus orçamentos, clientes e produtos com praticidade e segurança.</p>
+</div>
+
+<hr>
+
+<section>
+  <h2>Orçamentos</h2>
+  
+  <button onclick="irParaOrcamentos()">Ir para Orçamentos</button>
+</section>
+
+<hr>
+
+<section>
+  <h2>Galeria de Trabalhos</h2>
+
+  <button onclick="window.location.href='trabalhos.html'">
+    📸 Ver Galeria de Imagens
+  </button>
+</section>
+
+
+
+<!-- ================= CLIENTES ================= -->
+<section>
+  <h2>Cadastrar Cliente</h2>
+
+  <input type="text" id="nome" placeholder="Nome do cliente">
+  <br><br>
+
+  <input
+    type="text"
+    id="telefone"
+    placeholder="(99) 99999-9999"
+    maxlength="15"
+  >
+  <br><br>
+
+  <button id="btnCadastrar">Cadastrar Cliente</button>
+
+  <h3>Clientes cadastrados</h3>
+  <ul id="listaClientes"></ul>
+</section>
+
+<hr>
+
+<!-- ================= PRODUTO POR VÃO ================= -->
+<section>
+  <h2>Cadastrar Produto (por vão)</h2>
+
+  <input
+    type="text"
+    id="nomeProduto"
+    placeholder="Nome do produto (ex: Vidro Temperado)"
+  >
+  <br><br>
+
+  <!-- MANTIDO ID precoM2 PARA NÃO QUEBRAR O JS -->
+  <input
+    type="number"
+    id="precoM2"
+    placeholder="Preço por vão (R$)"
+    step="0.01"
+  >
+  <br><br>
+
+  <button id="btnCadastrarProduto">Cadastrar Produto</button>
+
+  <h3>Produtos cadastrados por vão</h3>
+  <ul id="listaProdutos"></ul>
+</section>
+
+<hr>
+
+
+
+
+<!-- ================= PRODUTO UNITÁRIO ================= -->
+<section>
+  <h2>Produtos de Valor Unitário</h2>
+
+  <label>Nome do produto</label><br>
+  <input
+    type="text"
+    id="nomeProdutoUnitario"
+    placeholder="Ex: Roldana, Kit Box, Puxador"
+  >
+  <br><br>
+
+  <label>Preço unitário (R$)</label><br>
+  <input
+    type="number"
+    id="precoUnitario"
+    step="0.01"
+    placeholder="Ex: 85.00"
+  >
+  <br><br>
+
+  <button id="btnCadastrarProdutoUnitario">
+    ➕ Cadastrar produto unitário
+  </button>
+
+  <h3>Produtos Unitários Cadastrados</h3>
+  <ul id="listaProdutosUnitarios"></ul>
+</section>
+
+<hr>
+
+<section>
+  <h2>Orçamentos</h2>
+  <button onclick="irParaOrcamentos()">Ir para Orçamentos</button>
+</section>
+
+<hr>
+
+
+
+<footer class="rubrica-dev">
+  <span>Desenvolvido por:</span>
+  <strong class="assinatura">DVS U/X</strong>
+</footer>
+
+<script src="js/script.js" defer></script>
+
+</body>
+</html>

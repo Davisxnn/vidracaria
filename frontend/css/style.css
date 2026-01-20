@@ -1,0 +1,387 @@
+/* ================= RESET BÁSICO ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* ================= BODY ================= */
+body {
+  background: linear-gradient(135deg, #eef4f9, #ffffff);
+  color: #2c3e50;
+  min-height: 100vh;
+  padding: 30px;
+}
+
+/* ================= TÍTULOS ================= */
+h1 {
+  text-align: center;
+  margin-bottom: 35px;
+  font-size: 2.4rem;
+  color: #1f3c5b;
+  letter-spacing: 1px;
+}
+
+h2 {
+  margin-bottom: 18px;
+  color: #1f3c5b;
+  border-left: 5px solid #4da3ff;
+  padding-left: 12px;
+}
+
+h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  color: #34495e;
+}
+
+/* ================= SEÇÕES / CARDS ================= */
+section,
+.card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 35px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e6eef6;
+}
+
+/* ================= CAMPOS ================= */
+.campo {
+  margin-bottom: 18px;
+}
+
+.campo label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #34495e;
+}
+
+.campo-duplo {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.campo-duplo > div {
+  flex: 1;
+}
+
+/* ================= INPUTS E SELECTS ================= */
+input,
+select {
+  width: 100%;
+  max-width: 420px;
+  padding: 11px 14px;
+  border-radius: 9px;
+  border: 1px solid #ccd6e0;
+  font-size: 0.95rem;
+  background: #fbfdff;
+  transition: all 0.25s ease;
+}
+
+input::placeholder {
+  color: #a0b0c0;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #4da3ff;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.2);
+}
+
+/* ================= BOTÕES ================= */
+button {
+  padding: 11px 20px;
+  border-radius: 9px;
+  border: none;
+  background: linear-gradient(135deg, #4da3ff, #1f78d1);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(77, 163, 255, 0.35);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* BOTÃO SECUNDÁRIO */
+button.secundario {
+  background: linear-gradient(135deg, #7f8c8d, #636e72);
+}
+
+button.secundario:hover {
+  box-shadow: 0 8px 18px rgba(127, 140, 141, 0.35);
+}
+
+/* ================= AÇÕES ================= */
+.acoes {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+/* ================= LISTAS ================= */
+ul,
+.lista {
+  list-style: none;
+  margin-top: 18px;
+}
+
+li {
+  background: linear-gradient(135deg, #f8fbff, #ffffff);
+  border-left: 4px solid #4da3ff;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.92rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* BOTÕES DENTRO DA LISTA */
+li button {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  border-radius: 7px;
+}
+
+/* BOTÃO PDF */
+li button {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+li button:hover {
+  box-shadow: 0 6px 14px rgba(46, 204, 113, 0.4);
+}
+
+/* ================= HR ================= */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ccd6e0, transparent);
+  margin: 45px 0;
+}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width: 600px) {
+  body {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+  }
+
+  section,
+  .card {
+    padding: 20px;
+  }
+
+  input,
+  select {
+    max-width: 100%;
+  }
+
+  .campo-duplo {
+    flex-direction: column;
+  }
+
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ================= TRABALHOS REALIZADOS ================= */
+
+.btn-trabalhos {
+  display: inline-block;
+  padding: 12px 22px;
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+/* Upload */
+#formUpload {
+  max-width: 440px;
+  margin: 0 auto 35px auto;
+  text-align: center;
+}
+
+#formUpload input[type="file"] {
+  border: 2px dashed #4da3ff;
+  background: #f5faff;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+#formUpload input[type="file"]::file-selector-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 7px;
+  background: #1e88e5;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#galeria {
+  max-width: 1100px;
+  margin: 35px auto 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+#galeria img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+  transition: 0.25s;
+}
+
+#galeria img:hover {
+  transform: scale(1.06);
+}
+
+/* Cards de trabalho */
+.trabalho-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  margin-bottom: 22px;
+}
+
+.trabalho-card img {
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+/* Botões extras */
+.btn-whatsapp {
+  background: linear-gradient(135deg, #25d366, #1ebe5d);
+}
+
+.btn-apagar {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+/* ================= BOAS-VINDAS ================= */
+.boas-vindas {
+  max-width: 900px;
+  margin: 0 auto 35px auto;
+  padding: 22px 28px;
+  background: linear-gradient(135deg, #f8fbff, #ffffff);
+  border-left: 6px solid #4da3ff;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.boas-vindas h2 {
+  margin-bottom: 6px;
+  color: #1f3c5b;
+  font-size: 1.6rem;
+}
+
+.boas-vindas p {
+  color: #5f6f82;
+  font-size: 0.95rem;
+}
+
+p {
+  color: #5f6f82;
+  font-size: 0.95rem;
+  padding-bottom: 1%;
+  padding-bottom: %;
+}
+
+/* ================= RUBRICA DO DESENVOLVEDOR ================= */
+.rubrica-dev {
+  margin-top: 60px;
+  padding: 18px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #7a8b9a;
+  border-top: 1px solid #dde6ef;
+}
+
+.rubrica-dev span {
+  margin-right: 6px;
+}
+
+.assinatura {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #4da3ff, #1f78d1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ================= BOTÕES DE ORÇAMENTO ================= */
+
+.btn-pdf,
+.btn-excluir {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* 📄 BOTÃO PDF */
+.btn-pdf {
+  background: #2563eb; /* azul */
+  color: #fff;
+}
+
+.btn-pdf:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+/* 🗑 BOTÃO EXCLUIR */
+.btn-excluir {
+  background: #dc2626; /* vermelho */
+  color: #fff;
+}
+
+.btn-excluir:hover {
+  background: #991b1b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.35);
+}
+
+/* 🔕 efeito ao clicar */
+.btn-pdf:active,
+.btn-excluir:active {
+  transform: scale(0.96);
+}
+

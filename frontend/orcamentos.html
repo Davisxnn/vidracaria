@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Orçamentos - Vidraçaria</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <h1>Orçamentos</h1>
+
+  <button class="secundario" onclick="voltarInicio()">⬅ Voltar</button>
+
+  <hr>
+
+  <div class="campo">
+      <label>Mão de obra R$ - Adicione apenas uma vez</label>
+      <input
+        type="number"
+        id="maoObra"
+        step="0.01"
+        placeholder="Ex: 150.00"
+      >
+    </div>
+
+  <!-- ================= CRIAR ORÇAMENTO ================= -->
+  <section class="card">
+
+    <h2>Criar Orçamento</h2>
+
+    <!-- CLIENTE -->
+    <div class="campo">
+      <label>Cliente</label>
+      <select id="clienteSelect"></select>
+    </div>
+
+    <!-- PRODUTO -->
+    <div class="campo">
+      <label>Produto</label>
+      <select id="produtoSelect"></select>
+    </div>
+
+    <div class="campo">
+  <label>Preço do vão (R$)</label>
+  <input
+    type="number"
+    id="precoVao"
+    step="0.01"
+    placeholder="Ex: 182.04"
+  >
+</div>
+
+
+    <!-- MEDIDAS -->
+    <div class="campo-duplo">
+      <div>
+        <label>Largura (m)</label>
+        <input type="number" id="largura" step="0.01">
+      </div>
+
+      <div>
+        <label>Altura (m)</label>
+        <input type="number" id="altura" step="0.01">
+      </div>
+    </div>
+
+
+
+    <!-- MÃO DE OBRA -->
+    
+
+    <!-- AÇÕES -->
+    <div class="acoes">
+      <button onclick="adicionarItem()">➕ Adicionar produto</button>
+    </div>
+
+    <!-- LISTA DE ITENS -->
+    <ul id="listaItens" class="lista"></ul>
+
+    <div class="acoes">
+      <button type="button" onclick="finalizarOrcamento()">
+  Finalizar Orçamento
+</button>
+
+    </div>
+
+  </section>
+
+  <hr>
+
+  <!-- ================= ORÇAMENTOS CRIADOS ================= -->
+  <section class="card">
+    <h2>Orçamentos Criados</h2>
+    <ul id="listaOrcamentos" class="lista"></ul>
+  </section>
+
+  <script src="js/script.js"></script>
+  
+  
+
+</body>
+</html>

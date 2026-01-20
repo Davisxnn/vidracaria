@@ -1,0 +1,550 @@
+function carregarProdutosUnitarios() {
+  fetch('/produtos')
+    .then(res => res.json())
+    .then(produtos => {
+      const lista = document.getElementById('listaProdutosUnitarios');
+      if (!lista) return;
+
+      lista.innerHTML = '';
+
+      produtos
+        .filter(p => p.tipo === 'unitario')
+        .forEach(p => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            ${p.nome} - R$ ${Number(p.preco).toFixed(2)}
+            <button onclick="excluirProduto(${p.id})">🗑 Excluir</button>
+          `;
+          lista.appendChild(li);
+        });
+    })
+    .catch(err => console.error('Erro ao carregar produtos unitários:', err));
+}
+
+let itensOrcamento = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('btnCadastrar')) {
+    document
+      .getElementById('btnCadastrar')
+      .addEventListener('click', cadastrarCliente);
+    carregarClientes();
+  }
+
+  if (document.getElementById('btnCadastrarProduto')) {
+    document
+      .getElementById('btnCadastrarProduto')
+      .addEventListener('click', cadastrarProduto);
+    carregarProdutos();
+  }
+
+  if (document.getElementById('btnCadastrarProdutoUnitario')) {
+    document
+      .getElementById('btnCadastrarProdutoUnitario')
+      .addEventListener('click', cadastrarProdutoUnitario);
+    carregarProdutosUnitarios();
+  }
+
+  if (document.getElementById('clienteSelect')) {
+    carregarClientesSelect();
+    carregarProdutos();
+    carregarProdutosUnitarios();
+    carregarProdutosSelect();
+  }
+
+  // ✅ AQUI ESTAVA O ERRO
+  if (document.getElementById('listaOrcamentos')) {
+    carregarOrcamentosCriados();
+  }
+});
+
+/* ================= PRODUTOS ================= */
+
+function cadastrarProduto() {
+  const nomeInput = document.getElementById('nomeProduto');
+  const precoInput = document.getElementById('precoM2');
+
+  if (!nomeInput || !precoInput) return;
+
+  const nome = nomeInput.value.trim();
+  const preco = Number(precoInput.value);
+
+  if (!nome || !preco) {
+    alert('Informe nome e preço por vão');
+    return;
+  }
+
+  fetch('/produtos', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      nome,
+      tipo: 'vao',
+      preco
+    })
+  })
+    .then(res => {
+      if (!res.ok) throw new Error();
+      return res.json();
+    })
+    .then(() => {
+      nomeInput.value = '';
+      precoInput.value = '';
+      carregarProdutos();
+      carregarProdutosSelect();
+    })
+    .catch(() => alert('Erro ao cadastrar produto por vão'));
+}
+
+function cadastrarProdutoUnitario() {
+  const nomeInput = document.getElementById('nomeProdutoUnitario');
+  const precoInput = document.getElementById('precoUnitario');
+
+  if (!nomeInput || !precoInput) return;
+
+  const nome = nomeInput.value.trim();
+  const preco = Number(precoInput.value);
+
+  if (!nome || preco <= 0) {
+    alert('Preencha nome e preço');
+    return;
+  }
+
+  fetch('/produtos', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      nome,
+      tipo: 'unitario',
+      preco
+    })
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('Erro no backend');
+      return res.json();
+    })
+    .then(() => {
+      nomeInput.value = '';
+      precoInput.value = '';
+      carregarProdutosUnitarios();
+      carregarProdutosSelect();
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Erro ao cadastrar produto unitário');
+    });
+}
+
+
+
+
+function carregarProdutos() {
+  fetch('/produtos')
+    .then(res => res.json())
+    .then(produtos => {
+      const lista = document.getElementById('listaProdutos');
+      if (!lista) return;
+
+      lista.innerHTML = '';
+
+      produtos
+        .filter(p => p.tipo === 'vao')
+        .forEach(p => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+  ${p.nome} — R$ ${Number(p.preco).toFixed(2)}
+  <button onclick="excluirProduto(${p.id})">🗑 Excluir</button>
+`;
+
+          lista.appendChild(li);
+        });
+    });
+}
+
+
+function carregarClientes() {
+  fetch('/clientes')
+    .then(res => res.json())
+    .then(clientes => {
+      if (!Array.isArray(clientes)) clientes = [];
+
+      const lista = document.getElementById('listaClientes');
+      if (!lista) return;
+
+      lista.innerHTML = '';
+
+      clientes.forEach(c => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${c.nome} - ${c.telefone}
+          <button onclick="excluirCliente(${c.id})">Excluir</button>
+        `;
+        lista.appendChild(li);
+      });
+    })
+    .catch(err => console.error('Erro ao carregar clientes:', err));
+}
+
+function aguardarElemento(id, callback) {
+  const el = document.getElementById(id);
+  if (el) {
+    callback();
+  } else {
+    setTimeout(() => aguardarElemento(id, callback), 100);
+  }
+}
+
+
+aguardarElemento('clienteSelect', () => {
+  carregarClientesSelect();
+  carregarProdutosSelect();
+});
+
+function carregarClientesSelect() {
+  fetch('/clientes')
+    .then(res => res.json())
+    .then(clientes => {
+      if (!Array.isArray(clientes)) clientes = [];
+
+      const select = document.getElementById('clienteSelect');
+      if (!select) return;
+
+      select.innerHTML = '<option value="">Selecione um cliente</option>';
+
+      clientes.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.id;
+        opt.textContent = c.nome;
+        select.appendChild(opt);
+      });
+    })
+    .catch(err => console.error('Erro ao carregar clientes no select:', err));
+}
+
+
+
+
+
+function excluirProduto(id) {
+  if (!confirm('Deseja excluir este produto?')) return;
+
+  fetch(`/produtos/${id}`, { method: 'DELETE' })
+    .then(() => {
+      carregarProdutos();
+      carregarProdutosUnitarios();
+      carregarProdutosSelect();
+    });
+}
+
+function excluirCliente(id) {
+  if (!confirm('Deseja realmente excluir este cliente?')) return;
+
+  fetch(`/clientes/${id}`, {
+    method: 'DELETE'
+  })
+    .then(res => {
+      if (!res.ok) throw new Error();
+      return res.json();
+    })
+    .then(() => {
+      carregarClientes();        // atualiza lista
+      carregarClientesSelect();  // atualiza select nos orçamentos
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Erro ao excluir cliente');
+    });
+}
+
+function cadastrarCliente() {
+  const nomeInput = document.getElementById('nome');
+  const telefoneInput = document.getElementById('telefone');
+
+  if (!nomeInput || !telefoneInput) return;
+
+  const nome = nomeInput.value.trim();
+  const telefone = telefoneInput.value.trim();
+
+  if (!nome || !telefone) {
+    alert('Preencha nome e telefone');
+    return;
+  }
+
+  fetch('/clientes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nome, telefone })
+  })
+    .then(res => res.json())
+    .then(() => {
+      nomeInput.value = '';
+      telefoneInput.value = '';
+      carregarClientes();
+      carregarClientesSelect();
+    })
+    .catch(() => alert('Erro ao cadastrar cliente'));
+}
+
+/* ================= SELECT ================= */
+
+function carregarProdutosSelect() {
+  fetch('/produtos')
+    .then(res => res.json())
+    .then(produtos => {
+      if (!Array.isArray(produtos)) produtos = [];
+
+      const select = document.getElementById('produtoSelect');
+      if (!select) return;
+
+      select.innerHTML = '<option value="">Selecione um produto</option>';
+
+      produtos.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+
+        // ✔ identifica o tipo sem mudar lógica nenhuma
+        opt.textContent =
+          p.tipo === 'unitario'
+            ? `${p.nome} (Unitário)`
+            : `${p.nome} (Por vão)`;
+
+        opt.dataset.tipo = p.tipo; // 🔒 útil se quiser evoluir depois
+        select.appendChild(opt);
+      });
+    })
+    .catch(err =>
+      console.error('Erro ao carregar produtos no select:', err)
+    );
+}
+
+
+function irParaOrcamentos() {
+  window.location.href = 'orcamentos.html';
+}
+
+function voltarInicio() {
+  window.location.href = 'index.html';
+}
+
+function adicionarItem() {
+  const produtoSelect = document.getElementById('produtoSelect');
+  const larguraInput = document.getElementById('largura');
+  const alturaInput = document.getElementById('altura');
+  const maoObraInput = document.getElementById('maoObra');
+  const precoVaoInput = document.getElementById('precoVao');
+  const precoVao = Number(precoVaoInput?.value) || 0;
+
+
+  if (!produtoSelect) {
+    alert('Produto não encontrado');
+    return;
+  }
+
+  const produtoId = Number(produtoSelect.value);
+  const produtoNome =
+    produtoSelect.options[produtoSelect.selectedIndex]?.text;
+
+  const largura = Number(larguraInput?.value) || 0;
+  const altura = Number(alturaInput?.value) || 0;
+  const maoObra = Number(maoObraInput?.value) || 0;
+
+  if (!produtoId) {
+    alert('Selecione um produto');
+    return;
+  }
+
+  fetch('/produtos')
+    .then(res => res.json())
+    .then(produtos => {
+      const produto = produtos.find(p => p.id === produtoId);
+
+      if (!produto) {
+        alert('Produto não encontrado');
+        return;
+      }
+
+      /* ================= PRODUTO UNITÁRIO ================= */
+      if (produto.tipo === 'unitario') {
+        const valorProduto = Number(produto.preco) || 0;
+
+        const item = {
+          produto_id: produtoId,
+          nome: produtoNome,
+          largura: 0,
+          altura: 0,
+          area: 0,
+          preco_m2: 0,
+          mao_obra: maoObra,
+          valor: valorProduto
+        };
+
+        itensOrcamento.push(item);
+        atualizarListaItens();
+        return;
+      }
+
+      /* ================= PRODUTO POR VÃO ================= */
+      /* ================= PRODUTO POR VÃO ================= */
+/* ================= PRODUTO POR VÃO ================= */
+if (!largura || !altura) {
+  alert('Preencha largura e altura');
+  return;
+}
+
+if (!precoVao || precoVao <= 0) {
+  alert('Informe o preço do vão');
+  return;
+}
+
+const item = {
+  produto_id: produtoId,
+  nome: produtoNome,
+  largura,
+  altura,
+  area: largura * altura,
+  preco_m2: 0,
+  mao_obra: maoObra,
+  valor: precoVao // 👈 AGORA VEM DO USUÁRIO
+};
+
+itensOrcamento.push(item);
+atualizarListaItens();
+
+if (larguraInput) larguraInput.value = '';
+if (alturaInput) alturaInput.value = '';
+if (precoVaoInput) precoVaoInput.value = '';
+
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Erro ao adicionar item');
+    });
+}
+
+
+
+
+function atualizarListaItens() {
+  const lista = document.getElementById('listaItens');
+  if (!lista) return;
+
+  lista.innerHTML = '';
+
+  itensOrcamento.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      ${item.nome} — ${item.largura} x ${item.altura}
+      <strong>R$ ${item.valor.toFixed(2)}</strong>
+      <button onclick="removerItem(${index})">❌</button>
+    `;
+    lista.appendChild(li);
+  });
+}
+
+function removerItem(index) {
+  itensOrcamento.splice(index, 1);
+  atualizarListaItens();
+}
+
+function finalizarOrcamento() {
+  const clienteSelect = document.getElementById('clienteSelect');
+
+  if (!clienteSelect) {
+    alert('Cliente não encontrado');
+    return;
+  }
+
+  if (itensOrcamento.length === 0) {
+    alert('Adicione pelo menos um item ao orçamento');
+    return;
+  }
+
+  fetch('/orcamentos', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      cliente_id: clienteSelect.value,
+      itens: itensOrcamento
+    })
+  })
+    .then(res => res.json())
+    .then(dados => {
+      if (!dados.id) {
+        alert('Erro ao gerar orçamento');
+        return;
+      }
+
+      // download automático do PDF
+      window.location.href = `/orcamentos/${dados.id}/pdf`;
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Erro ao finalizar orçamento');
+    });
+}
+
+function carregarOrcamentosCriados() {
+  fetch('/orcamentos/lista')
+    .then(res => res.json())
+    .then(orcamentos => {
+      const lista = document.getElementById('listaOrcamentos');
+      if (!lista) return;
+
+      lista.innerHTML = '';
+
+      if (!orcamentos.length) {
+        lista.innerHTML = '<li>Nenhum orçamento criado</li>';
+        return;
+      }
+
+      orcamentos.forEach(o => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+  <strong>#${o.id}</strong> — ${o.cliente}<br>
+  Data: ${new Date(o.data).toLocaleDateString()}<br>
+  Mão de obra: R$ ${Number(o.mao_obra).toFixed(2)}<br>
+  <strong>Total: R$ ${Number(o.valor_total).toFixed(2)}</strong><br>
+
+  <a href="/orcamentos/${o.id}/pdf" target="_blank" class="btn-pdf">
+    📄 PDF
+  </a>
+
+  <button onclick="excluirOrcamento(${o.id})" class="btn-excluir">
+    🗑 Excluir
+  </button>
+`;
+
+        lista.appendChild(li);
+      });
+    })
+    .catch(err => {
+      console.error('Erro ao carregar orçamentos:', err);
+    });
+}
+
+function excluirOrcamento(id) {
+  if (!confirm('Deseja realmente excluir este orçamento?')) return;
+
+  fetch(`/orcamentos/${id}`, {
+    method: 'DELETE'
+  })
+    .then(res => {
+      if (!res.ok) throw new Error();
+      return res.json();
+    })
+    .then(() => {
+      alert('Orçamento excluído com sucesso');
+      carregarOrcamentosCriados();
+    })
+    .catch(() => {
+      alert('Erro ao excluir orçamento');
+    });
+}
+
+
+
+
+
+
+
+

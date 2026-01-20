@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Trabalhos Realizados</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1>Trabalhos Realizados</h1>
+
+<form id="formUpload" enctype="multipart/form-data">
+  <input
+    type="file"
+    id="imagem"
+    name="imagem"
+    accept="image/*"
+    required
+  >
+  <button type="submit">Enviar imagem</button>
+</form>
+
+<hr>
+
+<!-- GALERIA (os cards serão inseridos via JS) -->
+<div id="galeria"></div>
+
+<script src="js/trabalhos.js"></script>
+</body>
+</html>
